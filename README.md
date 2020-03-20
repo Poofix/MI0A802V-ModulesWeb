@@ -6,5 +6,5 @@
 ***
 ## Partie 1
 
-* Lire un fichier [ici](./part1/readFile/README.md)
+* Lire un fichier [ici](./part1/readFile/)
 
