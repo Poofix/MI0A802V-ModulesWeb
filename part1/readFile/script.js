@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('fs');
 
 if (process.argv[2]) {
     fs.readFile('./data.csv', 'utf-8', (err, data) =>{
