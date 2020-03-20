@@ -26,5 +26,5 @@ User2;toulouse;
 
 ### Run time :
 ```
-node script.js
+node script.js data.csv
 ```
