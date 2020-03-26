@@ -58,6 +58,5 @@ User2;toulouse;
 
 ### Run time :
 ```
-$ node script.js
-$ firefox 127.0.0.1:8080
+$ node script.js && firefox 127.0.0.1:8080
 ```
