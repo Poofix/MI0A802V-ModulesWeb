@@ -8,8 +8,6 @@ var redData = [];
 
 const port = 8080;
 
-const compiledFunction = pug.compileFile('template.pug');
-
 const server = http.createServer((req, res) =>{
     var params = querystring.parse(url.parse(req.url).query); // Extraire les arguments dans la requête
     //req.url.split('=',2)[1]
@@ -24,16 +22,22 @@ const server = http.createServer((req, res) =>{
             data.split('\n').forEach(element =>{ 
                 redData.push(element.split(';',2))
             });
-        });
-    }
 
-    const generatedTemplate = compiledFunction({ 
-        redFile: redData 
-    });
-    console.log(redData);
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/html");
-    res.end(generatedTemplate);
+            const compiledFunction = pug.compileFile('template.pug');
+            const generatedTemplate = compiledFunction({ 
+                redFile: redData 
+            });
+
+            //console.log(redData);
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html");
+            res.end(generatedTemplate);
+        }); 
+    } else {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/html");
+        res.end("<a href=\"?file=data.csv\">test ici</a>");
+    }
 });
 
 server.listen(port, ()=>{
