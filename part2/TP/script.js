@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-var querystring = require('querystring');
-var url  = require('url');
 
 const port = 8080;
 const uuidv4 = require('uuid/v4');
