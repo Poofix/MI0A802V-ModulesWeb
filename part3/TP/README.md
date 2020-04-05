@@ -6,7 +6,7 @@
 * [Résultat](#Resultat)
 
 ***
-## Code source :
+## Code source
 
 ### Index.pug
 ```pug
