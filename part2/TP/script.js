@@ -82,14 +82,44 @@ app.post('/city', bodyParser.json(), (req, res, next) => {
 });
 
 app.put('/city/:id', (req, res, next) => {
-    //var idToDelete = req.params.id ? req.params.id : null;
+    var id = null;
+    if(req.params && req.params.id) {
+        id = req.params.id;
+    }
 
-    if (params["id"]) {
-
-    } else {
+    if(id == null){
         res.setHeader('Content-Type', 'text/html');
         res.statusCode = 400;
         res.end();
+    } else {
+        fs.readFile('cities.json', 'utf-8', (err, data) => {
+            if(err){
+                console.error(err);
+                res.setHeader('Content-Type', 'text/html');
+                res.statusCode = 404;
+                res.end();
+            } else {
+                if(req.body.name !== undefined && req.body.name !== null){
+                    var newContent = JSON.parse(data);
+                    newContent.cities.forEach(element => {
+                        if(element.id === id){
+                            element.name = req.body.name;
+                        }
+                    });
+                    console.log(newContent);
+                    fs.writeFile('cities.json', JSON.stringify(newContent), (err) => {
+                        if(err){
+                            console.error(err);
+                        } else {
+                            renderArgs.fileContent = JSON.parse(data).cities;
+                            res.setHeader('Content-type', 'text/html');
+                            res.statusCode = 200;
+                            res.render('template', renderArgs);
+                        }
+                    })
+                }
+            }
+        });
     }
 });
 

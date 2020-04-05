@@ -1,3 +1,114 @@
+# TP Mongo BD
+
+## Sommaire :
+
+* [Code source](#Code-source)
+* [Résultat](#Resultat)
+
+***
+## Code source :
+
+### Index.pug
+```pug
+html
+  body
+    h1=titre
+    a(href='/cities') Cities
+```
+
+### Template.pug
+```pug
+html
+  body
+    script.
+      function editCity(eid,name){
+        document.getElementById("editTitle").textContent = "Modifier " + name;
+        document.getElementById("editBtn").innerHTML = '<button onClick="formatAndfakeSubmit(\''+eid+'\')" >Enregister</button>';
+        document.getElementById("editBox").style.display = "";
+      }
+
+      function formatAndfakeSubmit(eid){
+        var data={};
+        data.name = document.getElementById("newName").value;
+        
+        var json = JSON.stringify(data);
+        var XMLHTTP = new XMLHttpRequest();
+        XMLHTTP.open('PUT','/city/'+eid, true);
+        
+        XMLHTTP.setRequestHeader('Content-type', 'application/json', charset='utf-8');
+        XMLHTTP.send(json);
+        document.getElementById("editBox").style.display = "none";
+        XMLHTTP.onLoad = function() {
+          document.location.href="./cities";
+        }
+      }
+
+      function formatAndSubmit(){
+        var data={};
+        data.name = document.getElementById("newCityName").value;
+        
+        var json = JSON.stringify(data);
+        var XMLHTTP = new XMLHttpRequest();
+        XMLHTTP.open('POST','/city', true);
+        
+        XMLHTTP.setRequestHeader('Content-type', 'application/json', charset='utf-8');
+        XMLHTTP.send(json);
+        XMLHTTP.onLoad = function() {
+          document.location.href="./cities";
+        }
+      }
+
+      function deleteCity(eid){
+        var XMLHTTP = new XMLHttpRequest();
+        XMLHTTP.open('DELETE','/city/'+eid, true);
+        
+        XMLHTTP.setRequestHeader('Content-type', 'application/json', charset='utf-8');
+        XMLHTTP.send();
+        XMLHTTP.onLoad = function() {
+          //
+        }
+        //document.location.href="./cities";
+      }
+
+    h1=titre
+    table
+      tr
+        th Id
+        th Ville
+        th Modifier
+        th Supprimer
+      each element in bddContent
+        tr
+          td=element._id
+          td=element.name
+          td
+            button(onclick="editCity('"+ element._id +"','"+ element.name +"')") Modifier
+          td
+            button(onclick="deleteCity('"+ element._id +"')") Supprimer
+  div
+    h2 Ajouter une ville
+      table
+        tr
+          td
+            Nom ville :
+          td 
+            input(type="text", name="name", id="newCityName")
+          td 
+            button(onclick="formatAndSubmit()") Enregistrer
+  div(id="editBox", style="display:none")
+    h2(id="editTitle") Modifier
+    table
+      tr
+        td
+          Nouveau nom :
+        td 
+          input(type="text", id="newName")
+        td(id="editBtn") 
+          button(onclick="formatAndfakeSubmit()") Enregistrer
+```
+
+### Script.js
+```js
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -128,3 +239,38 @@ app.delete('/city/:id', (req,res) => {
         });
     }
 });
+```
+***
+## Resultat :
+
+![tp3_0.png](../../ressources/tp3_0.png)
+
+### Ajout d'une ville sur le Web:
+
+Ici, on ajoute une ville nommé "Lyon" :  
+![tp3_1.png](../../ressources/tp3_1.png)
+#### Résulat sur le web
+![tp3_10.png](../../ressources/tp3_10.png)
+
+#### Résultat sur MongoDB
+![tp3_11.png](../../ressources/tp3_11.png)
+
+### Modification d'une ville sur le Web:
+
+Ici, on renomme une ville nommé "Lyon" en "Toulouse" en cliquant sur le bouton "Modifier", on élement s'affiche sur la page :  
+![tp3_2.png](../../ressources/tp3_2.png)
+#### Résulat sur le web
+![tp3_20.png](../../ressources/tp3_20.png)
+
+#### Résultat sur MongoDB
+![tp3_21.png](../../ressources/tp3_21.png)
+
+### Suppression d'une ville sur le Web:
+
+Ici, on supprime "Toulouse" en cliquant sur le bouton Supprimer :
+#### Résulat sur le web
+![tp3_30.png](../../ressources/tp3_30.png)
+
+#### Résultat sur MongoDB
+![tp3_31.png](../../ressources/tp3_31.png)
+
