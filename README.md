@@ -12,5 +12,8 @@
 
 ## Partie 2
 
-* Prise en main du framework Express [ici](./part2/miniTP/)
+* Prise en main du framework Express [ici](./part2/)
 
+## Partie 3
+
+* Prise en main de MongoDB [ici](./part3/)
