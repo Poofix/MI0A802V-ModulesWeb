@@ -241,7 +241,7 @@ app.delete('/city/:id', (req,res) => {
 });
 ```
 ***
-## Resultat :
+## Resultat
 
 ![tp3_0.png](../../ressources/tp3_0.png)
 
@@ -268,9 +268,6 @@ Ici, on renomme une ville nommé "Lyon" en "Toulouse" en cliquant sur le bouton 
 ### Suppression d'une ville sur le Web:
 
 Ici, on supprime "Toulouse" en cliquant sur le bouton Supprimer :
-#### Résulat sur le web
+#### Résulat sur MongoDB
 ![tp3_30.png](../../ressources/tp3_30.png)
-
-#### Résultat sur MongoDB
-![tp3_31.png](../../ressources/tp3_31.png)
 
